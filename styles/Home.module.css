@@ -28,14 +28,14 @@
   flex-grow: 1;
 }
 
-.title a {
+.title a, .get a {
   color: #0070f3;
   text-decoration: none;
 }
 
-.title a:hover,
-.title a:focus,
-.title a:active {
+.title a:hover, .get a:hover,
+.title a:focus, .get a:focus,
+.title a:active, .get a:active {
   text-decoration: underline;
 }
 

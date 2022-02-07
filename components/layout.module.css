@@ -1,0 +1,10 @@
+.backToHome a {
+  color: #0070f3;
+  text-decoration: none;
+}
+
+.backToHome a:hover,
+.backToHome a:focus,
+.backToHome a:active {
+  text-decoration: underline;
+}
