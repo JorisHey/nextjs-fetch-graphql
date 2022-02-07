@@ -6,7 +6,8 @@ import getCountry from "../../lib/getCountry";
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   try {
-    const data = await getCountry(params?.code?.toUpperCase());
+    const code = params?.code as string;
+    const data = await getCountry(code.toUpperCase())
     return {
       props: {
         data,
