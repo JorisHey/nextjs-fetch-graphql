@@ -5,6 +5,7 @@ const COUNTRY = (countryCode: string) => `{
         name
         native
         capital
+        continent {name}
         emoji
         currency
         languages {

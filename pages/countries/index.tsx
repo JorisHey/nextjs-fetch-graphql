@@ -2,10 +2,7 @@ import next, { NextPage } from "next";
 import router from "next/router";
 import React from "react";
 import Layout from "../../components/layout";
-
-const handleClick = (event: React.MouseEvent<HTMLButtonElement>, path:string) => {
-    
-}
+import { useCountryQuery } from "../../graphql/generated";
 
 const Countries: NextPage = () => {
     const [searchCountry, setSearchCountry] = React.useState('BE')

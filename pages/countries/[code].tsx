@@ -2,15 +2,18 @@ import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import Layout from "../../components/layout";
+import { Country } from "../../graphql/generated";
 import getCountry from "../../lib/getCountry";
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   try {
     const code = params?.code as string;
-    const data = await getCountry(code.toUpperCase())
+    const data: Country = await getCountry(code.toUpperCase());
+
     return {
       props: {
         data,
+        code,
       },
     };
   } catch (e) {
@@ -25,8 +28,9 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   }
 };
 
-const Countries: NextPage<{ data: { name: string }; error: any }> = ({
+const Countries: NextPage<{ data: Country; code: string; error: any }> = ({
   data,
+  code,
   error,
 }) => {
   if (error) return <div>Failed to load</div>;
@@ -48,7 +52,34 @@ const Countries: NextPage<{ data: { name: string }; error: any }> = ({
       {data === null ? (
         <h1>No country found with this code</h1>
       ) : (
-        <h1>{data.name}</h1>
+        <>
+          <h1>
+            {data.name} --{data.native}
+          </h1>
+
+          <table>
+            <tbody>
+              <tr>
+                <td>CAPITAL:</td>
+                <td>{data.capital}</td>
+              </tr>
+              <tr>
+                <td>CURRENCY:</td>
+                <td>{data.currency}</td>
+              </tr>
+              <tr>
+                <td>CONTINENT:</td>
+                <td>{data.continent.name}</td>
+              </tr>
+            </tbody>
+          </table>
+          <Image
+            src={`https://countryflagsapi.com/svg/${code}`}
+            width={200}
+            height={150}
+            alt= "Country Flag"
+          />
+        </>
       )}
     </Layout>
   );
