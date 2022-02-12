@@ -1,29 +1,17 @@
-import { request } from "graphql-request";
+import { GraphQLClient } from 'graphql-request'
+import { getSdk } from '../generated/graphql'
 
-const COUNTRY = (countryCode: string) => `{
-    country(code: "${countryCode}") {
-        name
-        native
-        capital
-        continent {name}
-        emoji
-        currency
-        languages {
-            code
-            name
-        }
-    }
-}`;
+const client = new GraphQLClient('https://countries.trevorblades.com')
+const sdk = getSdk(client)
 
-export default async function getCountry(countryCode: string) {
-  return request(
-    "https://countries.trevorblades.com/graphql",
-    COUNTRY(countryCode)
-  )
-    .then((r) => {
-      return r.country;
-    })
-    .catch((e) => {
-      throw e;
-    });
+export async function getAllCountries() {
+  const { countries } = await sdk.GetAllCountries()
+
+  return countries
+}
+
+export async function getCountry(countryCode: string) {
+  const { country } = await sdk.GetCountry({code: countryCode})
+
+  return country
 }

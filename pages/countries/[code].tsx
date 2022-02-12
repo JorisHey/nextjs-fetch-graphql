@@ -2,13 +2,13 @@ import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import Layout from "../../components/layout";
-import { Country } from "../../graphql/generated";
-import getCountry from "../../lib/getCountry";
+import type { Country } from "../../generated/graphql";
+import {getCountry, getAllCountries} from "../../lib/getCountry";
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   try {
     const code = params?.code as string;
-    const data: Country = await getCountry(code.toUpperCase());
+    const data = await getCountry(code.toUpperCase());
 
     return {
       props: {
@@ -54,7 +54,7 @@ const Countries: NextPage<{ data: Country; code: string; error: any }> = ({
       ) : (
         <>
           <h1>
-            {data.name} --{data.native}
+            {data.name} -- {data.native}
           </h1>
 
           <table>

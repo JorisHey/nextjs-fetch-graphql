@@ -12,7 +12,6 @@
 ### Features to add
 
 - Styling
-- List of countries when "searching"
 
 ---
 
